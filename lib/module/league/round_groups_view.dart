@@ -117,7 +117,7 @@ class _RoundGroupsState extends State<RoundGroupsPage>
 
   _nonInteractiveRefresh() {
     /// _refreshIndicatorKey.currentState.show() will trigger a call to _handleRefresh().
-    if (_refreshIndicatorKey == null) {
+    if (_refreshIndicatorKey == null || _refreshIndicatorKey.currentState == null) {
       Future.delayed(const Duration(milliseconds: 100), () {
         _refreshIndicatorKey.currentState.show();
       });
