@@ -31,6 +31,17 @@ class _RoundGroupsState extends State<RoundGroupsPage>
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var headTextStyle = theme.textTheme.title.copyWith(
+      fontSize: 18.0,
+    );
+    var headBoldTextStyle = headTextStyle.copyWith(
+      fontWeight: FontWeight.w700,
+    );
+    var subheadTextStyle = theme.textTheme.caption.copyWith(
+      fontSize: 14.0,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -48,16 +59,17 @@ class _RoundGroupsState extends State<RoundGroupsPage>
             itemBuilder: (context, i) {
               final Group group = _roundGroups.groups[i];
               final List children = <Widget>[
-                Text(group.category.name),
+                Text(
+                  group.category.name,
+                  style: headTextStyle,
+                ),
                 Icon(
                   Icons.navigate_next,
                   color: Theme.of(context).accentColor,
                 ),
                 Text(
                   group.subcategory.name.toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: headBoldTextStyle,
                 )
               ];
 
@@ -76,7 +88,10 @@ class _RoundGroupsState extends State<RoundGroupsPage>
                         ),
                         Row(
                           children: <Widget>[
-                            Text(group.name),
+                            Text(
+                              group.name,
+                              style: subheadTextStyle,
+                            ),
                           ],
                         ),
                       ],
@@ -117,12 +132,13 @@ class _RoundGroupsState extends State<RoundGroupsPage>
 
   _nonInteractiveRefresh() {
     /// _refreshIndicatorKey.currentState.show() will trigger a call to _handleRefresh().
-    if (_refreshIndicatorKey == null || _refreshIndicatorKey.currentState == null) {
+    if (_refreshIndicatorKey == null ||
+        _refreshIndicatorKey.currentState == null) {
       Future.delayed(const Duration(milliseconds: 100), () {
         _refreshIndicatorKey.currentState.show();
       });
     } else {
-        _refreshIndicatorKey.currentState.show();
+      _refreshIndicatorKey.currentState.show();
     }
   }
 

@@ -42,6 +42,14 @@ flutter:
         - asset: fonts/RobotoCondensed-Regular.ttf
         - asset: fonts/RobotoCondensed-Bold.ttf
           weight: 700
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/Ubuntu-Regular.ttf
+        - asset: fonts/Ubuntu-Bold.ttf
+          weight: 700
+    - family: UbuntuCondensed
+      fonts:
+        - asset: fonts/UbuntuCondensed-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

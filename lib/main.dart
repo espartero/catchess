@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: "Catchess",
       theme: new ThemeData(
-          // TODO review style
-          primaryColor: Color(0xFF00BCD4),
-          secondaryHeaderColor: Color(0xFF4DD0E1),
-          accentColor: Color(0xFFFFA726),
-          fontFamily: "RobotoCondensed"),
+        // TODO review style
+        primaryColor: Color(0xFF00BCD4),
+        secondaryHeaderColor: Color(0xFF4DD0E1),
+        accentColor: Color(0xFFFFA726),
+        fontFamily: "UbuntuCondensed"
+      ),
       home: Scaffold(
         body: RoundGroupsPage(),
       ),
