@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF00BCD4),
         secondaryHeaderColor: Color(0xFF4DD0E1),
         accentColor: Color(0xFFFFA726),
-        fontFamily: "UbuntuCondensed"
+        fontFamily: "UbuntuCondensed",
       ),
       home: Scaffold(
         body: RoundGroupsPage(),

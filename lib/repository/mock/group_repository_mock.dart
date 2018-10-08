@@ -9,7 +9,7 @@ import '../../model/group_data.dart';
 
 /// A mock for the [GroupRepository].
 class GroupRepositoryMock implements GroupRepository {
-  static const _responseDelayMillis = 100;
+  static const _responseDelayMillis = 1000;
   static const _errorFrequency = 5;
 
   RoundGroups _roundGroups;

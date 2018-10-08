@@ -44,12 +44,28 @@ class _RoundGroupsState extends State<RoundGroupsPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Lliga Catalana", // TODO i18n
-          style: TextStyle(
-            color: Colors.cyan[50], // TODO style
-          ),
-        ), // TODO i18n + review text style
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Lliga Catalana 2018", // TODO i18n
+              style: TextStyle(
+                color: Colors.cyan[50], // TODO style
+                fontWeight: FontWeight.w700,
+                fontSize: 22.0,
+              ),
+            ),
+            Text(
+              "Ronda 1 - 01.02.2018", // TODO i18n
+              style: TextStyle(
+                color: Colors.cyan[50], // TODO style
+                fontSize: 16.0,
+              ),
+            ),
+          ],
+        ),
+        brightness: Brightness.dark,
       ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
@@ -58,20 +74,6 @@ class _RoundGroupsState extends State<RoundGroupsPage>
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, i) {
               final Group group = _roundGroups.groups[i];
-              final List children = <Widget>[
-                Text(
-                  group.category.name,
-                  style: headTextStyle,
-                ),
-                Icon(
-                  Icons.navigate_next,
-                  color: Theme.of(context).accentColor,
-                ),
-                Text(
-                  group.subcategory.name.toUpperCase(),
-                  style: headBoldTextStyle,
-                )
-              ];
 
               return Container(
                 height: 40.0,
@@ -84,12 +86,17 @@ class _RoundGroupsState extends State<RoundGroupsPage>
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: children,
+                          children: <Widget>[
+                            Text(
+                              group.subcategory.name,
+                              style: headBoldTextStyle,
+                            )
+                          ],
                         ),
                         Row(
                           children: <Widget>[
                             Text(
-                              group.name,
+                              group.category.name + " - " + group.name,
                               style: subheadTextStyle,
                             ),
                           ],
