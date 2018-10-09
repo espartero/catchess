@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../model/round_groups_data.dart';
 import '../../model/group_data.dart';
 import 'round_groups_presenter.dart';
+import 'round_detail_view.dart';
 
 /// Page that shows the list of groups for a round.
 ///
@@ -65,6 +66,7 @@ class _RoundGroupsState extends State<RoundGroupsPage>
             ),
           ],
         ),
+        elevation: 2.0,
         brightness: Brightness.dark,
       ),
       body: RefreshIndicator(
@@ -73,43 +75,69 @@ class _RoundGroupsState extends State<RoundGroupsPage>
         child: ListView.separated(
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, i) {
-              final Group group = _roundGroups.groups[i];
-
-              return Container(
-                height: 40.0,
-                margin: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0),
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              group.subcategory.name,
-                              style: headBoldTextStyle,
-                            )
-                          ],
+              if (i == 0) {
+                return GestureDetector(
+                  onTap: () => _pushDetail(),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    height: 40.0,
+                    margin: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0),
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            "Todos los grupos",
+                            style: headBoldTextStyle,
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              group.category.name + " - " + group.name,
-                              style: subheadTextStyle,
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                final Group group = _roundGroups.groups[i - 1];
+
+                return GestureDetector(
+                  onTap: () => _pushDetail(group: group),
+                  child: Container(
+                    height: 40.0,
+                    margin: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  group.subcategory.name,
+                                  style: headBoldTextStyle,
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  group.category.name + " - " + group.name,
+                                  style: subheadTextStyle,
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              );
+                  ),
+                );
+              }
             },
             separatorBuilder: (context, i) => Divider(height: 0.0),
-            itemCount:
-                _roundGroups?.groups != null ? _roundGroups.groups.length : 0),
+            itemCount: _roundGroups?.groups != null
+                ? _roundGroups.groups.length + 1
+                : 0),
       ),
     );
   }
@@ -156,5 +184,17 @@ class _RoundGroupsState extends State<RoundGroupsPage>
     } else {
       return null;
     }
+  }
+
+  _pushDetail({Group group}) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => RoundDetailPage(
+                _roundGroups.season,
+                _roundGroups.round,
+                group,
+              )),
+    );
   }
 }

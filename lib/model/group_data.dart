@@ -7,9 +7,6 @@ class Group {
   final String name;
   final Category category;
   final Subcategory subcategory;
-  final int total;
-  final int finished;
 
-  const Group(this.id, this.name, this.category, this.subcategory, this.total,
-      this.finished);
+  const Group(this.id, this.name, this.category, this.subcategory);
 }

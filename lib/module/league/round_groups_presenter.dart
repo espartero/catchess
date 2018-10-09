@@ -23,7 +23,7 @@ class RoundGroupsPresenter {
 
   Future loadLastRound() {
     return _repository
-        .find(null, null) // TODO use the last season and round
+        .findRoundGroups(null, null) // TODO use the last season and round
         .then((roundGroups) => _view.onLoadDataComplete(roundGroups))
         .catchError((onError) => _view.onLoadDataError());
   }
