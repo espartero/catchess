@@ -186,7 +186,7 @@ class _RoundGroupsState extends State<RoundGroupsPage>
     }
   }
 
-  _pushDetail({Group group}) async {
+  _pushDetail({Group group}) {
     Navigator.push(
       context,
       MaterialPageRoute(

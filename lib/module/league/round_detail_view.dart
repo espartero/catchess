@@ -4,9 +4,10 @@ import '../../model/season_data.dart';
 import '../../model/round_data.dart';
 import '../../model/group_data.dart';
 import '../../model/round_detail_data.dart';
-import '../../model/match_data.dart';
 import '../../model/group_matches_data.dart';
+import '../../model/match_data.dart';
 import 'round_detail_presenter.dart';
+import 'match_detail_view.dart';
 
 class RoundDetailPage extends StatefulWidget {
   final Season _season;
@@ -96,7 +97,7 @@ class _RoundDetailState extends State<RoundDetailPage>
 
             List<Widget> matchWidgets = List();
             for (var i = 0; i < groupMatches.matches.length; i++) {
-              Match match = groupMatches.matches[i];
+              MatchData match = groupMatches.matches[i];
               var team1TextStyle = match.isTeam1Winner()
                   ? winnerTeamTextStyle
                   : nonWinnerTeamTextStyle;
@@ -105,46 +106,49 @@ class _RoundDetailState extends State<RoundDetailPage>
                   : nonWinnerTeamTextStyle;
 
               matchWidgets.add(
-                Container(
-                  margin: EdgeInsets.fromLTRB(16.0, 5.0, 16.0, 5.0),
-                  child: Table(
-                    columnWidths: const <int, TableColumnWidth>{
-                      0: FlexColumnWidth(),
-                      1: FixedColumnWidth(30.0),
-                    },
-                    children: [
-                      TableRow(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                match.team1,
-                                style: team1TextStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                match.team2,
-                                style: team2TextStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                _pointsToString(match.result1),
-                                style: team1TextStyle,
-                              ),
-                              Text(
-                                _pointsToString(match.result2),
-                                style: team2TextStyle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () => _pushDetail(match),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(16.0, 5.0, 16.0, 5.0),
+                    child: Table(
+                      columnWidths: const <int, TableColumnWidth>{
+                        0: FlexColumnWidth(),
+                        1: FixedColumnWidth(30.0),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  match.team1,
+                                  style: team1TextStyle,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  match.team2,
+                                  style: team2TextStyle,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  _pointsToString(match.result1),
+                                  style: team1TextStyle,
+                                ),
+                                Text(
+                                  _pointsToString(match.result2),
+                                  style: team2TextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -234,6 +238,15 @@ class _RoundDetailState extends State<RoundDetailPage>
     } else {
       return null;
     }
+  }
+
+  _pushDetail(MatchData match) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MatchDetailPage(match),
+      ),
+    );
   }
 
   String _pointsToString(double points) {

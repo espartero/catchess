@@ -4,6 +4,8 @@ import '../model/season_data.dart';
 import '../model/round_data.dart';
 import '../model/round_detail_data.dart';
 import '../model/group_data.dart';
+import '../model/match_data.dart';
+import '../model/match_detail_data.dart';
 
 /// Contract for the group related repository actions.
 abstract class GroupRepository {
@@ -12,4 +14,6 @@ abstract class GroupRepository {
 
   Future<RoundDetail> findRoundDetail(Season season, Round round,
       {Group group});
+
+  Future<MatchDetail> findMatchDetail(MatchData match);
 }

@@ -3,7 +3,7 @@ import 'match_data.dart';
 
 class GroupMatches {
   final Group group;
-  final List<Match> matches;
+  final List<MatchData> matches;
 
   const GroupMatches(this.group, this.matches);
 }
